@@ -15,6 +15,7 @@ const AnecdoteList = () => {
 
   return (
     <div>
+      <h2>create new</h2>
       {anecdotes.sort(voteSort).map((anecdote) => (
         <div key={anecdote.id}>
           <div>{anecdote.content}</div>
