@@ -1,5 +1,6 @@
 import { createAnec } from "../reducers/anecdoteReducer";
 import { useDispatch } from "react-redux";
+import { anecdoteMessage, interval } from "../reducers/notificationReducer";
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch();
@@ -8,6 +9,9 @@ const AnecdoteForm = () => {
     const content = event.target.anecdoteNew.value;
     event.target.anecdoteNew.value = "";
     dispatch(createAnec(content));
+
+    dispatch(anecdoteMessage(`${content} created`));
+    dispatch(interval(5000));
   };
   return (
     <form onSubmit={newAnecdote}>
@@ -20,3 +24,27 @@ const AnecdoteForm = () => {
 };
 
 export default AnecdoteForm;
+// import { createAnec } from "../reducers/anecdoteReducer";
+// import { useDispatch } from "react-redux";
+// import { anecdoteMessage } from "../reducers/notificationReducer";
+
+// const AnecdoteForm = () => {
+//   const dispatch = useDispatch();
+//   const newAnecdote = (event) => {
+//     event.preventDefault();
+//     const content = event.target.anecdoteNew.value;
+//     event.target.anecdoteNew.value = "";
+//     dispatch(createAnec(content));
+//     dispatch(anecdoteMessage(`${content} created`));
+//   };
+//   return (
+//     <form onSubmit={newAnecdote}>
+//       <div>
+//         <input name="anecdoteNew" />
+//       </div>
+//       <button>create</button>
+//     </form>
+//   );
+// };
+
+// export default AnecdoteForm;
