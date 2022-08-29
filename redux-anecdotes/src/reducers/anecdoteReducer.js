@@ -1,4 +1,4 @@
-// import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const anecdotesAtStart = [
   "If it hurts, do it more often",
@@ -21,81 +21,81 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-// const anecdoteSlice = createSlice({
-//   name: "anecdotes",
-//   initialState,
-//   reducers: {
-//     initializeAnecdote(state, action) {
-//       return action.payload;
-//     },
-//     increaseVote(state, action) {
-//       const id = action.payload;
-//       const updatedObj = state.find((Obj) => Obj.id === id);
-//       const anecdote = {
-//         ...updatedObj,
-//         votes: updatedObj.votes + 1,
-//       };
-//       return state.map((anec) => (anec.id !== id ? anec : anecdote));
-//     },
-//     createAnec(state, action) {
-//       const content = action.payload;
-//       state.push({ content, id: getId(), votes: 0 });
-//     },
-//     // case "InitAnec": initializeAnecdote = () => {
-//     //   return {
-//     //     type: "InitAnec",
-//     //     data: initialState,
-//     //   };
-//     // };
-//     //   return action.data;
-//   },
-// });
-// export const { initializeAnecdote, increaseVote, createAnec } =
-//   anecdoteSlice.actions;
-// export default anecdoteSlice.reducer;
-
-const anecdoteReducer = (state = initialState, action) => {
-  console.log("state now: ", state);
-  console.log("action", action);
-  switch (action.type) {
-    case "VOTE":
-      const id = action.data;
+const anecdoteSlice = createSlice({
+  name: "anecdotes",
+  initialState,
+  reducers: {
+    initializeAnecdote(state, action) {
+      return action.payload;
+    },
+    increaseVote(state, action) {
+      const id = action.payload;
       const updatedObj = state.find((Obj) => Obj.id === id);
       const anecdote = {
         ...updatedObj,
         votes: updatedObj.votes + 1,
       };
       return state.map((anec) => (anec.id !== id ? anec : anecdote));
-    case "NEW":
-      return state.concat(action.data);
-
-    case "InitAnec":
-      return action.data;
-    default:
-      return state;
-  }
-};
-
-export const increaseVote = (id) => {
-  return { type: "VOTE", data: id };
-};
-
-export const createAnec = (anecdote) => {
-  return {
-    type: "NEW",
-    data: {
-      content: anecdote,
-      id: getId(),
-      votes: 0,
     },
-  };
-};
+    createAnec(state, action) {
+      const content = action.payload;
+      state.push({ content, id: getId(), votes: 0 });
+    },
+    // case "InitAnec": initializeAnecdote = () => {
+    //   return {
+    //     type: "InitAnec",
+    //     data: initialState,
+    //   };
+    // };
+    //   return action.data;
+  },
+});
+export const { initializeAnecdote, increaseVote, createAnec } =
+  anecdoteSlice.actions;
+export default anecdoteSlice.reducer;
 
-export const initializeAnecdote = () => {
-  return {
-    type: "InitAnec",
-    data: initialState,
-  };
-};
+// const anecdoteReducer = (state = initialState, action) => {
+//   console.log("state now: ", state);
+//   console.log("action", action);
+//   switch (action.type) {
+//     case "VOTE":
+//       const id = action.data;
+//       const updatedObj = state.find((Obj) => Obj.id === id);
+//       const anecdote = {
+//         ...updatedObj,
+//         votes: updatedObj.votes + 1,
+//       };
+//       return state.map((anec) => (anec.id !== id ? anec : anecdote));
+//     case "NEW":
+//       return state.concat(action.data);
 
-export default anecdoteReducer;
+//     // case "InitAnec":
+//     //   return action.data;
+//     default:
+//       return state;
+//   }
+// };
+
+// export const increaseVote = (id) => {
+//   return { type: "VOTE", data: id };
+// };
+
+// export const createAnec = (anecdote) => {
+//   return {
+//     type: "NEW",
+//     data: {
+//       content: anecdote,
+//       id: getId(),
+//       votes: 0,
+//     },
+//   };
+// };
+
+// export const initializeAnecdote = () => {
+//   return {
+//     type: "InitAnec",
+//     data: initialState,
+//   };
+// };
+
+// export default anecdoteReducer;

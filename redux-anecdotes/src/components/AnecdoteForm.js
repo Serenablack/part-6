@@ -11,7 +11,7 @@ const AnecdoteForm = () => {
     dispatch(createAnec(content));
 
     dispatch(anecdoteMessage(`${content} created`));
-    dispatch(interval(5000));
+    setTimeout(() => dispatch(interval(null)), 4000);
   };
   return (
     <form onSubmit={newAnecdote}>

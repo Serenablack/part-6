@@ -1,28 +1,30 @@
 import { useSelector, useDispatch } from "react-redux";
-import { increaseVote, initializeAnecdote } from "../reducers/anecdoteReducer";
+import { increaseVote } from "../reducers/anecdoteReducer";
 import { anecdoteMessage, interval } from "../reducers/notificationReducer";
 
 const AnecdoteList = () => {
-  const anecdote = useSelector((state) => state.anecdotes);
-  console.log(anecdote);
+  const voteSort = (a, b) => {
+    return b.votes - a.votes;
+  };
+  const anecdote = useSelector(({ anecdotes, filter }) => {
+    if (filter === null) {
+      return [...anecdotes].sort(voteSort);
+    } else return filter;
+  });
 
   const dispatch = useDispatch();
 
   const vote = (id) => {
-    console.log("vote", id);
     dispatch(increaseVote(id));
-    dispatch(anecdoteMessage(`You voted ${anecdote.content}`));
-    // dispatch((interval(), 4));
-  };
-
-  const voteSort = (b, a) => {
-    return b.votes - a.votes;
+    const anecdoteReq = anecdote.find((anec) => id === anec.id);
+    dispatch(anecdoteMessage(`You voted ${anecdoteReq.content}`));
+    setTimeout(() => dispatch(interval(null)), 4000);
   };
 
   return (
     <div>
       <h2>create new</h2>
-      {anecdote.sort(voteSort).map((anec) => (
+      {anecdote.map((anec) => (
         <div key={anec.id}>
           <div>{anec.content}</div>
           <div>

@@ -1,23 +1,25 @@
 const notificationReducer = (state = null, action) => {
-  if (action.type === "NOTIFICATION") {
-    return action.notification;
+  switch (action.type) {
+    case "NOTIFICATION":
+      return action.notification;
+    case "REMOVE":
+      return action.notification;
+    default:
+      return state;
   }
-  return state;
 };
 
 export const anecdoteMessage = (notification) => {
-  console.log(notification);
   return {
     type: "NOTIFICATION",
     notification,
   };
 };
-export const interval = (time) => {
-  return setInterval(() => {
-    return {
-      type: "NOTIFICATION",
-      notification: null,
-    };
-  }, time);
+export const interval = (notification) => {
+  return {
+    type: "REMOVE",
+    notification,
+  };
 };
+
 export default notificationReducer;
