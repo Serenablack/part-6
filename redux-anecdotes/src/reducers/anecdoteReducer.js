@@ -35,6 +35,9 @@ const anecdoteSlice = createSlice({
         ...updatedObj,
         votes: updatedObj.votes + 1,
       };
+      console.log(state);
+
+      console.log(anecdote.votes);
       return state.map((anec) => (anec.id !== id ? anec : anecdote));
     },
     createAnec(state, action) {

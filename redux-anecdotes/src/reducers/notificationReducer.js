@@ -1,25 +1,17 @@
-const notificationReducer = (state = null, action) => {
-  switch (action.type) {
-    case "NOTIFICATION":
-      return action.notification;
-    case "REMOVE":
-      return action.notification;
-    default:
-      return state;
-  }
-};
+import { createSlice } from "@reduxjs/toolkit";
 
-export const anecdoteMessage = (notification) => {
-  return {
-    type: "NOTIFICATION",
-    notification,
-  };
-};
-export const interval = (notification) => {
-  return {
-    type: "REMOVE",
-    notification,
-  };
-};
+const notificationSlice = createSlice({
+  name: "notification",
+  initialState: null,
+  reducers: {
+    anecdoteMessage(state, action) {
+      return action.payload;
+    },
+    interval(state, action) {
+      return action.payload;
+    },
+  },
+});
 
-export default notificationReducer;
+export const { anecdoteMessage, interval } = notificationSlice.actions;
+export default notificationSlice.reducer;

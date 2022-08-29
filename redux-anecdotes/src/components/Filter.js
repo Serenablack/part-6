@@ -11,6 +11,7 @@ const Filter = () => {
     const reqAnec = anecdotes.filter((anec) =>
       anec.content.toLowerCase().includes(toFilter.toLowerCase())
     );
+    console.log(reqAnec.votes);
     dispatch(filterApply(reqAnec));
   };
   return (

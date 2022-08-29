@@ -1,3 +1,5 @@
+import { initializeAnecdote } from "./anecdoteReducer";
+
 const filterReducer = (state = null, action) => {
   switch (action.type) {
     case "FILTER":
