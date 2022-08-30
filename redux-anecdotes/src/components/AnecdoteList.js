@@ -9,7 +9,12 @@ const AnecdoteList = () => {
   const anecdote = useSelector(({ anecdotes, filter }) => {
     if (filter === null) {
       return [...anecdotes].sort(voteSort);
-    } else return filter;
+    } else {
+      const reqAnec = anecdotes.filter((anec) =>
+        anec.content.toLowerCase().includes(filter.toLowerCase())
+      );
+      return reqAnec;
+    }
   });
 
   const dispatch = useDispatch();
@@ -18,7 +23,7 @@ const AnecdoteList = () => {
     dispatch(increaseVote(id));
     const anecdoteReq = anecdote.find((anec) => id === anec.id);
     dispatch(anecdoteMessage(`You voted ${anecdoteReq.content}`));
-    setTimeout(() => dispatch(interval(null)), 4000);
+    setTimeout(() => dispatch(interval(null)), 5000);
   };
 
   return (
