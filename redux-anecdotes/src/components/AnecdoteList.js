@@ -10,9 +10,11 @@ const AnecdoteList = () => {
     if (filter === null) {
       return [...anecdotes].sort(voteSort);
     } else {
-      const reqAnec = anecdotes.filter((anec) =>
-        anec.content.toLowerCase().includes(filter.toLowerCase())
-      );
+      const reqAnec = anecdotes
+        .filter((anec) =>
+          anec.content.toLowerCase().includes(filter.toLowerCase())
+        )
+        .sort(voteSort);
       return reqAnec;
     }
   });
