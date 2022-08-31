@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import anecdoteService from "../services/anecdotes";
 // const anecdotesAtStart = [
 //   "If it hurts, do it more often",
 //   "Adding manpower to a late software project makes it later!",
@@ -9,7 +9,7 @@ import { createSlice } from "@reduxjs/toolkit";
 //   "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
 // ];
 
-const getId = () => (100000 * Math.random()).toFixed(0);
+// const getId = () => (100000 * Math.random()).toFixed(0);
 
 // const asObject = (anecdote) => {
 //   return {
@@ -25,7 +25,7 @@ const anecdoteSlice = createSlice({
   name: "anecdotes",
   initialState: [],
   reducers: {
-    initializeAnecdote(state, action) {
+    initAnecdote(state, action) {
       return action.payload;
     },
     increaseVote(state, action) {
@@ -58,15 +58,24 @@ const anecdoteSlice = createSlice({
     //   return action.data;
   },
 });
-export const {
-  initializeAnecdote,
-  increaseVote,
-  createAnec,
-  appendAnecdotes,
-  setAnecdotes,
-} = anecdoteSlice.actions;
+export const { increaseVote, initAnecdote, appendAnecdotes, setAnecdotes } =
+  anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
 
+export const initializeAnecdote = () => {
+  return async (dispatch) => {
+    const anecdotes = await anecdoteService.getAll();
+
+    dispatch(initAnecdote(anecdotes));
+  };
+};
+
+export const createAnec = (content) => {
+  return async (dispatch) => {
+    const newAnec = await anecdoteService.createNew(content);
+    dispatch(appendAnecdotes(newAnec));
+  };
+};
 // const anecdoteReducer = (state = initialState, action) => {
 //   console.log("state now: ", state);
 //   console.log("action", action);
