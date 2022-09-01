@@ -12,5 +12,13 @@ const createNew = async (content) => {
   const response = await axios.post(baseUrl, object);
   return response.data;
 };
+const update = async (anectoUpdate) => {
+  console.log(anectoUpdate);
+  const response = await axios.put(
+    `${baseUrl}/${anectoUpdate.id}`,
+    anectoUpdate
+  );
+  return response.data;
+};
 
-export default { getAll, createNew };
+export default { getAll, createNew, update };

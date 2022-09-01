@@ -4,7 +4,7 @@ const notificationSlice = createSlice({
   name: "notification",
   initialState: null,
   reducers: {
-    anecdoteMessage(state, action) {
+    anecMessage(state, action) {
       return action.payload;
     },
     interval(state, action) {
@@ -13,5 +13,12 @@ const notificationSlice = createSlice({
   },
 });
 
-export const { anecdoteMessage, interval } = notificationSlice.actions;
+export const { anecMessage, interval } = notificationSlice.actions;
 export default notificationSlice.reducer;
+
+export const anecdoteMessage = (message, time) => {
+  return async (dispatch) => {
+    dispatch(anecMessage(message));
+    setTimeout(() => dispatch(interval(null)), time);
+  };
+};

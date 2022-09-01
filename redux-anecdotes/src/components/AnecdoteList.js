@@ -22,10 +22,9 @@ const AnecdoteList = () => {
   const dispatch = useDispatch();
 
   const vote = (id) => {
-    dispatch(increaseVote(id));
     const anecdoteReq = anecdote.find((anec) => id === anec.id);
-    dispatch(anecdoteMessage(`You voted ${anecdoteReq.content}`));
-    setTimeout(() => dispatch(interval(null)), 5000);
+    dispatch(increaseVote(anecdoteReq));
+    dispatch(anecdoteMessage(`You voted ${anecdoteReq.content}`, 5000));
   };
 
   return (
