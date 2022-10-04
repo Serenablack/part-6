@@ -15,10 +15,14 @@ const notificationSlice = createSlice({
 
 export const { anecMessage, interval } = notificationSlice.actions;
 export default notificationSlice.reducer;
+let timeoutID = null;
 
 export const anecdoteMessage = (message, time) => {
   return async (dispatch) => {
     dispatch(anecMessage(message));
-    setTimeout(() => dispatch(interval(null)), time);
+    if (timeoutID) {
+      clearTimeout(timeoutID);
+    }
+    timeoutID = setTimeout(() => dispatch(interval(null)), time);
   };
 };
